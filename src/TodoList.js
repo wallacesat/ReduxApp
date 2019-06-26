@@ -2,12 +2,18 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-const TodoList = ({ todos, addTodo }) => (
+import * as TodoActions from './store/actions/todos';
+
+const TodoList = ({ todos, addTodo, removeTodo }) => (
   <Fragment>
     <ul>
       {todos.map(todo => (
-        <li key={todo.id}>{todo.text}</li>
+        <li key={todo.id}>
+          {todo.text}
+          <button onClick={() => removeTodo(todo.id)}>Remover</button>
+        </li>
       ))}
     </ul>
     <button onClick={() => addTodo('Entrar dentro, porque não entra pra fora')}>
@@ -29,9 +35,8 @@ const mapStateToProps = state => ({
   todos: state.todos
 });
 
-const mapDispatchToProps = dispatch => ({
-  addTodo: text => dispatch({ type: 'ADD_TODO', payload: { text } })
-});
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(TodoActions, dispatch);
 
 export default connect(
   mapStateToProps,
