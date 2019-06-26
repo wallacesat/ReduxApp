@@ -3,16 +3,14 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-const TodoList = ({ todos, addTodos }) => (
+const TodoList = ({ todos, addTodo }) => (
   <Fragment>
     <ul>
-      {todos.map((todo, id) => (
-        <li key={id}>{todo.text}</li>
+      {todos.map(todo => (
+        <li key={todo.id}>{todo.text}</li>
       ))}
     </ul>
-    <button
-      onClick={() => addTodos('Entrar dentro, porque não entra pra fora')}
-    >
+    <button onClick={() => addTodo('Entrar dentro, porque não entra pra fora')}>
       Adicionar
     </button>
   </Fragment>
